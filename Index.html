@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+
+<html lang="th"><head><base target="_top"><meta charset="utf-8">
+
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Kru Ploy Tech Classroom</title><script src="https://accounts.google.com/gsi/client" async defer></script>
+
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600&family=Sarabun:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+
+:root{--bg:#f4f8fc;--card:#fff;--ink:#1e293b;--mut:#64748b;--pri:#0ea5e9;--pri2:#0369a1;--ok:#16a34a;--bad:#dc2626;--line:#e2e8f0;--soft:#e0f2fe;--shadow:0 8px 24px rgba(15,23,42,.08)}
+
+body.dark{--bg:#0f172a;--card:#172033;--ink:#e5edf7;--mut:#94a3b8;--pri:#38bdf8;--pri2:#7dd3fc;--line:#334155;--soft:#0c4a6e;--shadow:0 10px 30px rgba(0,0,0,.25)}
+
+*{box-sizing:border-box}body{margin:0;font-family:Sarabun,sans-serif;background:var(--bg);color:var(--ink);transition:background .2s,color .2s}h1,h2,h3,.brand{font-family:Kanit,sans-serif}.hide{display:none!important}
+
+#loginPage{min-height:100vh;display:grid;place-items:center;padding:16px;background:linear-gradient(135deg,#e0f2fe,#fef9c3)}body.dark #loginPage{background:linear-gradient(135deg,#0f172a,#164e63)}
+
+.box{background:var(--card);border-radius:18px;padding:28px;width:100%;max-width:430px;box-shadow:var(--shadow);border:1px solid var(--line)}.login-brand{font-family:Kanit;font-size:25px;font-weight:600}.login-actions{display:grid;gap:9px;margin-top:14px}
+
+label{display:block;font-size:13px;color:var(--mut);margin:10px 0 4px}input,select,textarea{width:100%;padding:10px 11px;border:1px solid var(--line);border-radius:9px;font:inherit;background:var(--card);color:var(--ink)}textarea{min-height:90px}
+
+button{font:inherit;cursor:pointer;border:0;border-radius:9px;padding:9px 14px;background:var(--pri);color:#fff;transition:.15s;box-shadow:0 2px 6px rgba(2,132,199,.15)}button:hover{filter:brightness(.96);transform:translateY(-1px)}button.sec{background:#e2e8f0;color:#1e293b}body.dark button.sec{background:#334155;color:#e5edf7}button.bad{background:var(--bad)}button.sm{padding:5px 9px;font-size:13px}button.outline{background:transparent;color:var(--pri2);border:1px solid var(--line);box-shadow:none}
+
+#app{display:flex;min-height:100vh}#side{width:230px;background:var(--card);border-right:1px solid var(--line);padding:14px 10px;flex-shrink:0}#side .brand{font-weight:600;color:var(--pri2);padding:6px 10px 14px;font-size:17px}#side a{display:block;padding:9px 12px;border-radius:9px;color:var(--ink);cursor:pointer;margin-bottom:2px}#side a.on,#side a:hover{background:var(--soft);color:var(--pri2)}
+
+#main{flex:1;min-width:0}#top{display:flex;justify-content:space-between;align-items:center;background:var(--card);border-bottom:1px solid var(--line);padding:10px 18px;gap:8px}.top-actions{display:flex;align-items:center;gap:7px;flex-wrap:wrap}#content{padding:18px;min-height:calc(100vh - 105px)}#footer{padding:14px 18px;color:var(--mut);font-size:12px;text-align:center;border-top:1px solid var(--line);background:var(--card)}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:16px}.card{background:var(--card);border-radius:13px;padding:14px;box-shadow:var(--shadow);border:1px solid var(--line)}.card b{font-size:26px;font-family:Kanit;color:var(--pri2);display:block}.tw{overflow-x:auto;background:var(--card);border-radius:12px;box-shadow:var(--shadow);border:1px solid var(--line)}
+
+table{border-collapse:collapse;width:100%;font-size:14px}th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}th{background:rgba(148,163,184,.12);white-space:nowrap}.bar{display:flex;gap:8px;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap}.tag{padding:2px 8px;border-radius:99px;font-size:12px;background:#e2e8f0}.tag.ok{background:#dcfce7;color:#166534}.tag.no{background:#fee2e2;color:#991b1b}
+
+#modal{position:fixed;inset:0;background:#0008;display:flex;align-items:center;justify-content:center;padding:14px;z-index:50}#modal .box{max-width:680px;max-height:90vh;overflow:auto}#toast{position:fixed;bottom:18px;right:18px;z-index:99;display:flex;flex-direction:column;gap:6px;max-width:380px}#toast div{background:#0f172a;color:#fff;padding:10px 14px;border-radius:9px;box-shadow:var(--shadow)}#toast .e{background:var(--bad)}
+
+.q{background:var(--card);border-radius:12px;padding:14px;margin-bottom:10px;box-shadow:var(--shadow);border:1px solid var(--line)}.q label{display:flex;gap:8px;align-items:center;color:var(--ink);font-size:15px;margin:6px 0}.q input{width:auto}.empty{color:var(--mut);text-align:center;padding:14px}.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.notice{padding:10px 12px;border-radius:10px;background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;margin:10px 0}.dark-note{background:rgba(56,189,248,.08);border:1px solid var(--line);color:var(--mut)}.protected{user-select:none;-webkit-user-select:none}.preview{border:2px dashed var(--line);padding:14px;border-radius:12px;background:var(--bg)}
+
+@media(max-width:760px){#app{flex-direction:column}#side{width:100%;display:flex;overflow-x:auto;gap:4px;padding:6px}#side .brand{display:none}#side a{white-space:nowrap}.row2{grid-template-columns:1fr}#content{padding:12px}}
+
+</style></head><body>
+
+
+
+<div id="loginPage"><div class="box"><div class="login-brand">🎓 <span id="loginTitle">Kru Ploy Tech Classroom</span></div><p id="loginSubtitle" style="color:var(--mut);margin:4px 0 14px">เข้าสู่ระบบห้องเรียนออนไลน์</p><label>Username / Email</label><input id="lu" autocomplete="username"><label>Password</label><input id="lp" type="password" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()"><div class="login-actions"><button style="width:100%" onclick="doLogin()">เข้าสู่ระบบ</button><button id="googleBtn" class="sec" style="width:100%;display:none" onclick="googleLoginStart()">🔐 เข้าสู่ระบบด้วย Google</button><button class="outline" style="width:100%" onclick="forgotModal()">ลืมรหัสผ่าน?/กรุณาติดต่อไปยังAdmin(ครูพลอย)</button></div></div></div>
+
+
+
+<div id="app" class="hide">
+
+ <nav id="side"></nav>
+
+ <div id="main"><div id="top"><b id="ttl"></b><span class="top-actions"><span id="who"></span><button class="sec sm" id="themeBtn" onclick="toggleTheme()">☀️</button><button class="sec sm" id="langBtn" onclick="toggleLang()">EN</button><button class="sec sm" onclick="doLogout()">ออกจากระบบ</button></span></div><div id="content"></div><div id="footer">© 2026 Kru Ploy Tech Classroom. All rights reserved.</div></div>
+
+</div>
+
+<div id="toast"></div><div id="modal" class="hide"></div>
+
+
+
+<script>
+
+var S={token:sessionStorage.getItem('kptc_t')||'',user:null,perms:[],d:{},page:'dashboard',exam:null,imp:{rows:[]},tmp:{},stuTopic:'',settings:{},lang:localStorage.getItem('kptc_lang')||'th',theme:localStorage.getItem('kptc_theme')||'light',sessionTimeoutMin:360,idleTimer:null,idleWarnTimer:null};
+
+var $=function(i){return document.getElementById(i)};
+
+function esc(v){return String(v==null?'':v).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+
+function toast(m,e){var d=document.createElement('div');d.textContent=m;if(e)d.className='e';$('toast').appendChild(d);setTimeout(function(){d.remove()},e?6000:2800)}
+
+function call(name,p){return new Promise(function(res,rej){google.script.run
+
+ .withSuccessHandler(function(r){ if(r&&r.ok)res(r.data); else {var m=(r&&r.error)||'เกิดข้อผิดพลาด'; if(/SESSION_EXPIRED/.test(m)){forceLogin();} rej(new Error(m));}})
+
+ .withFailureHandler(function(e){rej(e)}).api(S.token,name,p||{});});}
+
+function run(p,ok){return p.then(function(x){if(ok)toast(ok);return x}).catch(function(e){toast(e.message,1);throw e})}
+
+function can(p){return S.perms.indexOf(p)>=0}
+
+function isAct(v){return ['false','0','no','n','disabled','inactive','draft','ปิด','ปิดใช้งาน'].indexOf(String(v==null?'':v).trim().toLowerCase())<0}
+
+function tname(id){var t=(S.d.topics||[]).filter(function(x){return String(x.topicId)===String(id)})[0];return t?t.name:(id||'')}
+
+function dt(s){return s?new Date(s).toLocaleString('th-TH'):''}
+
+
+
+/* ---------- appearance / language ---------- */
+
+var I18N={th:{login:'เข้าสู่ระบบ',logout:'ออกจากระบบ',forgot:'ลืมรหัสผ่าน?',google:'🔐 เข้าสู่ระบบด้วย Google',preview:'พรีวิว',copyNotice:'เนื้อหาบทเรียนและข้อสอบเป็นทรัพย์สินทางปัญญา ห้ามคัดลอก ทำซ้ำ บันทึกหน้าจอ หรือนำไปเผยแพร่โดยไม่ได้รับอนุญาต'},en:{login:'Sign in',logout:'Sign out',forgot:'Forgot password?',google:'🔐 Sign in with Google',preview:'Preview',copyNotice:'Lesson and examination content is intellectual property. Copying, reproducing, screen recording, or redistribution is prohibited without permission.'}};
+
+var UI={
+
+ th:{dashboard:'📊 Dashboard',users:'👥 ผู้ใช้',topics:'📚 หมวด',lessons:'📖 บทเรียน',questions:'❓ ข้อสอบ',import:'⬆️ นำเข้าข้อสอบ',documents:'📄 เอกสาร',exams:'📝 ชุดสอบ',results:'🏆 ผลสอบ',analytics:'📈 Analytics',settings:'⚙️ Settings',audit:'🧾 Audit Log',profile:'🙍 Profile',add:'+ เพิ่ม',edit:'แก้ไข',del:'ลบ',save:'บันทึก',cancel:'ยกเลิก',confirm:'ยืนยัน',status:'สถานะ',category:'หมวด',content:'เนื้อหา',preview:'พรีวิว',selectTopic:'เลือกหมวด',documentsInTopic:'เอกสารในหมวดนี้',noDocuments:'ยังไม่มีเอกสารในหมวดนี้',open:'เปิด',examMode:'รูปแบบการสอบ',byExam:'ตามชุดสอบ',byTopic:'ตามหมวดสอบ',mixed:'คละหมวด',allTopics:'ทุกหมวด',questionCount:'จำนวนข้อ',duration:'เวลา (นาที)',pass:'เกณฑ์ผ่าน %',start:'เริ่มสอบ',mixedStart:'เริ่มสอบแบบคละ',noQuestions:'ข้อสอบไม่เพียงพอตามเงื่อนไขที่เลือก',filter:'กรอง',all:'ทั้งหมด'},
+
+ en:{dashboard:'📊 Dashboard',users:'👥 Users',topics:'📚 Topics',lessons:'📖 Lessons',questions:'❓ Questions',import:'⬆️ Import Questions',documents:'📄 Documents',exams:'📝 Exams',results:'🏆 Results',analytics:'📈 Analytics',settings:'⚙️ Settings',audit:'🧾 Audit Log',profile:'🙍 Profile',add:'+ Add',edit:'Edit',del:'Delete',save:'Save',cancel:'Cancel',confirm:'Confirm',status:'Status',category:'Topic',content:'Content',preview:'Preview',selectTopic:'Select topic',documentsInTopic:'Documents in this topic',noDocuments:'No documents in this topic',open:'Open',examMode:'Exam mode',byExam:'By exam set',byTopic:'By topic',mixed:'Mixed topics',allTopics:'All topics',questionCount:'Questions',duration:'Duration (min)',pass:'Pass %',start:'Start exam',mixedStart:'Start mixed exam',noQuestions:'Not enough questions for the selected criteria',filter:'Filter',all:'All'}
+
+};
+
+function U(k){return (UI[S.lang]&&UI[S.lang][k])||UI.th[k]||k}
+
+function trText(v){var map={'ยกเลิก':'cancel','ยืนยัน':'confirm','สถานะ':'status','หมวด':'category','เนื้อหา':'content','เลือกหมวด':'selectTopic','เอกสารในหมวดนี้':'documentsInTopic','ยังไม่มีเอกสารในหมวดนี้':'noDocuments','เปิด':'open','รูปแบบการสอบ':'examMode','ตามชุดสอบ':'byExam','ตามหมวดสอบ':'byTopic','คละหมวด':'mixed','ทุกหมวด':'allTopics','จำนวนข้อ':'questionCount','เวลา (นาที)':'duration','เกณฑ์ผ่าน %':'pass','เริ่มสอบ':'start','เริ่มสอบแบบคละ':'mixedStart','ข้อสอบไม่เพียงพอตามเงื่อนไขที่เลือก':'noQuestions','กรอง':'filter','ทั้งหมด':'all','+ เพิ่ม':'add','แก้ไข':'edit','ลบ':'del','บันทึก':'save','ชื่อระบบ':'systemName','ชื่อบท':'lessonTitle','ชื่อชุดสอบ':'examTitle','คำถาม':'question','ตัวเลือก A':'choiceA','ตัวเลือก B':'choiceB','ตัวเลือก C':'choiceC','ตัวเลือก D':'choiceD','เฉลย':'answer','ระดับ':'difficulty','รายละเอียด':'description','ชื่อ':'name','ห้อง':'class','โทร':'phone','ผู้ใช้':'usersLabel','Dashboard':'dashboard','ชื่อ-สกุล':'fullName','Email':'email','Username':'username','Role':'role','ID':'id','ชื่อหมวด':'topicName','คำอธิบาย':'description','ชื่อบท':'lessonTitle','ลำดับ':'sortOrder','ชื่อชุดสอบ':'examTitle','นาที':'duration','ข้อ':'questionCount','ผ่าน %':'pass','รหัสผ่าน (เว้นว่าง=ไม่เปลี่ยน)':'password','รหัสนักเรียน':'studentId','รายงาน':'reports','เพิ่ม':'add','เปลี่ยนรหัสผ่าน':'changePassword','ตั้งค่าระบบ':'systemSettings','ธีมและภาษา':'themeLanguage','พรีวิวก่อนเผยแพร่':'previewBeforePublish','การเข้าสู่ระบบ':'loginSettings','สว่าง':'light','มืด':'dark','ไทย':'thai','English':'english','เปิด Spreadsheet':'openSpreadsheet','สถานะระบบ':'systemStatus','ยินดีต้อนรับ':'welcome','บทเรียน':'lessons','ข้อสอบ':'questions','ชุดสอบ':'exams','เอกสาร':'documents','ผลสอบ':'results','ผู้สอบ (ครั้ง)':'attempts','ผู้สอบ':'attempts','เฉลี่ย %':'average','สูงสุด %':'highest','ต่ำสุด %':'lowest','แยกตามหมวด':'byTopic','แยกตามนักเรียน':'byStudent','เวลา':'time','ผู้ใช้':'users','ข้อมูล':'data'};return map[v]?U(map[v]):v}
+
+function applyUiLanguage(){var nodes=document.querySelectorAll('#content label,#content button,#content th,#content .bar span,#content h3,#content h2,#content p');[].forEach.call(nodes,function(n){var raw=n.textContent.trim();var t=trText(raw);if(t!==raw)n.textContent=t;});var side=document.querySelectorAll('#side a');[].forEach.call(side,function(a){var k=a.getAttribute('data-p');a.textContent=U(k)});var ttl=$('ttl');if(ttl&&ttl.dataset.key)ttl.textContent=U(ttl.dataset.key)}
+
+
+
+function T(k){return (I18N[S.lang]&&I18N[S.lang][k])||I18N.th[k]||k}
+
+function applyTheme(){document.body.classList.toggle('dark',S.theme==='dark');localStorage.setItem('kptc_theme',S.theme);var b=$('themeBtn');if(b)b.textContent=S.theme==='dark'?'🌙':'☀️'}
+
+function toggleTheme(){S.theme=S.theme==='dark'?'light':'dark';applyTheme();saveSettingClient('THEME',S.theme)}
+
+function toggleLang(){S.lang=S.lang==='th'?'en':'th';localStorage.setItem('kptc_lang',S.lang);updateStaticText();render()}
+
+function updateStaticText(){var b=$('langBtn');if(b)b.textContent=S.lang==='th'?'EN':'TH';var g=$('googleBtn');if(g)g.textContent=T('google');var f=document.querySelector('#loginPage .outline');if(f)f.textContent=T('forgot');var lb=document.querySelector('#loginPage .login-actions button:not(.sec):not(.outline)');if(lb)lb.textContent=T('login');var lo=document.querySelector('#top button.sec.sm:last-child');if(lo)lo.textContent=T('logout');var labs=document.querySelectorAll('#loginPage label');if(labs.length>1){labs[0].textContent=S.lang==='th'?'Username / Email':'Username / Email';labs[1].textContent=S.lang==='th'?'Password':'Password';}}
+
+function applyPublicSettings(){var p=S.settings||{};if(p.theme&&!localStorage.getItem('kptc_theme'))S.theme=p.theme;if(p.lang&&!localStorage.getItem('kptc_lang'))S.lang=p.lang;applyTheme();if($('loginTitle'))$('loginTitle').textContent=p.title||p.APP_TITLE||'Kru Ploy Tech Classroom';if($('loginSubtitle'))$('loginSubtitle').textContent=p.subtitle||p.APP_SUBTITLE||'เข้าสู่ระบบห้องเรียนออนไลน์';if($('footer'))$('footer').textContent=p.footer||p.FOOTER_TEXT||'© 2026 Kru Ploy Tech Classroom. All rights reserved.';if($('googleBtn'))$('googleBtn').style.display=p.googleClientId?'block':'none';S.sessionTimeoutMin=Number(p.sessionTimeoutMin)||360;updateStaticText();startSessionWatch()}
+
+function saveSettingClient(k,v){if(!S.user||S.user.role!=='admin')return;call('saveSetting',{key:k,value:v}).catch(function(e){toast(e.message,1)})}
+
+function loadPublicSettings(){return call('getPublicSettings').then(function(r){S.settings=r||{};applyPublicSettings()}).catch(function(){applyTheme();updateStaticText()})}
+
+function startSessionWatch(){
+
+ clearTimeout(S.idleTimer);clearTimeout(S.idleWarnTimer);
+
+ if(!S.user)return;
+
+ var ms=Math.max(5,Number(S.sessionTimeoutMin)||360)*60000, warn=Math.min(60000,Math.max(30000,ms-60000));
+
+ function reset(){clearTimeout(S.idleTimer);clearTimeout(S.idleWarnTimer);S.idleTimer=setTimeout(function(){toast('Session หมดอายุ กำลังออกจากระบบ',1);forceLogin()},ms);S.idleWarnTimer=setTimeout(function(){toast('Session จะหมดอายุใน 1 นาที กรุณาทำรายการต่อ',1)},warn)}
+
+ ['click','keydown','mousemove','scroll','touchstart'].forEach(function(ev){document.addEventListener(ev,reset,{passive:true})});reset();
+
+}
+
+/* ---------- auth ---------- */
+
+function doLogin(){var u=$('lu').value.trim(),p=$('lp').value;if(!u||!p){toast('กรุณากรอก Username และ Password',1);return}run(call('login',{username:u,password:p})).then(function(r){S.token=r.token;sessionStorage.setItem('kptc_t',r.token);S.user=r.user;S.perms=r.permissions;boot();});}
+
+function googleLoginStart(){if(!S.settings.googleClientId){toast('ผู้ดูแลระบบยังไม่ได้ตั้งค่า Google Client ID',1);return}if(!window.google||!google.accounts){toast('Google Sign-In กำลังโหลด กรุณาลองอีกครั้ง',1);return}google.accounts.id.initialize({client_id:S.settings.googleClientId,callback:function(resp){run(call('googleLogin',{credential:resp.credential})).then(function(r){S.token=r.token;sessionStorage.setItem('kptc_t',r.token);S.user=r.user;S.perms=r.permissions;boot()})}});google.accounts.id.prompt();}
+
+function forgotModal(){
+  modal(
+    '<h3>ลืมรหัสผ่าน</h3>' +
+    '<p class="dark-note">กรุณาติดต่อ Admin (ครูพลอย) เพื่อรีเซ็ตรหัสผ่าน</p>' +
+    '<div style="text-align:right;margin-top:14px">' +
+    '<button class="sec" onclick="closeModal()">ปิด</button>' +
+    '</div>'
+  );
+}
+
+function doLogout(){try{$('lu').value='';$('lp').value='';}catch(e){}call('logout').catch(function(){}).then(forceLogin)}
+
+function forceLogin(){S.token='';sessionStorage.removeItem('kptc_t');S.user=null;S.perms=[];S.d={};S.exam=null;clearTimeout(S.idleTimer);clearTimeout(S.idleWarnTimer);try{$('lu').value='';$('lp').value='';}catch(e){}$('app').classList.add('hide');$('loginPage').classList.remove('hide');applyPublicSettings()}
+
+function init(){applyTheme();loadPublicSettings().then(function(){if(!S.token)return;call('getSession').then(function(r){S.user=r.user;S.perms=r.permissions;boot()}).catch(function(){forceLogin()})})}
+
+
+
+var MENU={
+
+ admin:[['dashboard'],['users'],['topics'],['lessons'],['questions'],['import'],['documents'],['exams'],['results'],['analytics'],['settings'],['audit'],['profile']],
+
+ teacher:[['dashboard'],['topics'],['lessons'],['questions'],['import'],['documents'],['exams'],['results'],['analytics'],['profile']],
+
+ student:[['dashboard'],['lessons'],['exams'],['documents'],['results'],['profile']]};
+
+function boot(){
+
+ $('loginPage').classList.add('hide');$('app').classList.remove('hide');
+
+ $('who').textContent=(S.user.fullName||S.user.username)+' ('+S.user.role+')';
+
+ $('side').innerHTML='<div class="brand">🎓 KPTC</div>'+MENU[S.user.role].map(function(m){return '<a data-p="'+m[0]+'" onclick="navigate(\''+m[0]+'\')">'+U(m[0])+'</a>'}).join('');
+
+ navigate('dashboard'); // shell first, data after
+
+ refresh().then(function(){if(S.user.role==='admin')loadAdminSettings();if(String(S.user.mustChange).toUpperCase()==='TRUE')pwModal(true);});updateStaticText();
+
+}
+
+function refresh(){return call('getData').then(function(d){S.d=d;render()}).catch(function(e){toast('โหลดข้อมูลไม่สำเร็จ: '+e.message,1);render()})}
+
+function navigate(p){S.page=p;[].forEach.call(document.querySelectorAll('#side a'),function(a){a.classList.toggle('on',a.dataset.p===p)});render()}
+
+function render(){
+
+ if(!S.user)return; var m=MENU[S.user.role].filter(function(x){return x[0]===S.page})[0];
+
+ $('ttl').dataset.key=S.page; $('ttl').textContent=m?U(m[0]):'';
+
+ var f=PAGES[S.page]; $('content').innerHTML=f?f():'';
+
+ applyUiLanguage();
+
+}
+
+
+
+/* ---------- generic UI ---------- */
+
+function table(cols,rows,actions){
+
+ var h='<div class="tw"><table><thead><tr>'+cols.map(function(c){return '<th>'+esc(trText(c[1]))+'</th>'}).join('')+(actions?'<th></th>':'')+'</tr></thead><tbody>';
+
+ rows.forEach(function(r,i){h+='<tr>'+cols.map(function(c){var v=c[2]?c[2](r):esc(r[c[0]]);return '<td>'+v+'</td>'}).join('')+(actions?'<td style="white-space:nowrap">'+actions(r,i)+'</td>':'')+'</tr>'});
+
+ return h+'</tbody></table>'+(rows.length?'':'<div class="empty">ยังไม่มีข้อมูล</div>')+'</div>';
+
+}
+
+function tag(v){return isAct(v)?'<span class="tag ok">เปิด</span>':'<span class="tag no">ปิด</span>'}
+
+function modal(html,locked){var m=$('modal');m.innerHTML='<div class="box">'+html+'</div>';m.classList.remove('hide');m.onclick=function(e){if(e.target===m&&!locked)closeModal()}}
+
+function closeModal(){$('modal').classList.add('hide')}
+
+function ask(msg,fn){modal('<p>'+esc(msg)+'</p><div style="text-align:right"><button class="sec" onclick="closeModal()">ยกเลิก</button> <button class="bad" id="okb">ยืนยัน</button></div>');$('okb').onclick=function(){closeModal();fn()}}
+
+
+
+/* ---------- CRUD config ---------- */
+
+var BOOL=[['TRUE','เปิด'],['FALSE','ปิด']];
+
+function topicOpts(){return (S.d.topics||[]).map(function(t){return [t.topicId,t.topicId+' '+t.name]})}
+
+function lessonOpts(){return [['','-']].concat((S.d.lessons||[]).map(function(l){return [l.lessonId,l.lessonId+' '+l.title]}))}
+
+var CRUD={
+
+ topics:{ent:'topic',key:'topicId',list:function(){return S.d.topics||[]},cols:[['topicId','ID'],['name','ชื่อหมวด'],['description','รายละเอียด'],['active','สถานะ',function(r){return tag(r.active)}]],
+
+  f:function(){return [['topicId','Topic ID (เว้นว่าง=สร้างอัตโนมัติ)','text'],['name','ชื่อหมวด','text'],['description','รายละเอียด','textarea'],['active','สถานะ','select',BOOL]]}},
+
+ lessons:{ent:'lesson',key:'lessonId',list:function(){return S.d.lessons||[]},cols:[['lessonId','ID'],['topicId','หมวด',function(r){return esc(tname(r.topicId))}],['title','ชื่อบท'],['sortOrder','ลำดับ'],['active','สถานะ',function(r){return tag(r.active)}]],
+
+  f:function(){return [['lessonId','Lesson ID','text'],['topicId','หมวด','select',topicOpts()],['title','ชื่อบท','text'],['content','เนื้อหา','textarea'],['sortOrder','ลำดับ','number'],['active','สถานะ','select',BOOL]]}},
+
+ questions:{ent:'question',key:'questionId',list:function(){return S.d.questions||[]},cols:[['questionId','ID'],['topicId','หมวด',function(r){return esc(tname(r.topicId))}],['question','คำถาม'],['answer','เฉลย'],['difficulty','ระดับ'],['active','สถานะ',function(r){return tag(r.active)}]],
+
+  f:function(){return [['questionId','Question ID','text'],['topicId','หมวด','select',topicOpts()],['lessonId','บทเรียน','select',lessonOpts()],['question','คำถาม','textarea'],['choiceA','ตัวเลือก A','text'],['choiceB','ตัวเลือก B','text'],['choiceC','ตัวเลือก C','text'],['choiceD','ตัวเลือก D','text'],['answer','เฉลย','select',[['A','A'],['B','B'],['C','C'],['D','D']]],['explanation','คำอธิบาย','textarea'],['difficulty','ระดับ','select',[['easy','easy'],['medium','medium'],['hard','hard']]],['active','สถานะ','select',BOOL]]}},
+
+ exams:{ent:'exam',key:'examId',list:function(){return S.d.exams||[]},cols:[['examId','ID'],['title','ชื่อชุดสอบ'],['topicId','หมวด',function(r){return esc(tname(r.topicId))}],['durationMin','นาที'],['questionCount','จำนวนข้อ'],['passPercent','ผ่าน %'],['active','สถานะ',function(r){return tag(r.active)}]],
+
+  f:function(){return [['examId','Exam ID','text'],['title','ชื่อชุดสอบ','text'],['topicId','หมวด','select',topicOpts()],['durationMin','เวลา (นาที)','number'],['questionCount','จำนวนข้อ','number'],['passPercent','เกณฑ์ผ่าน %','number'],['active','สถานะ','select',BOOL]]}},
+
+ users:{ent:'user',key:'userId',list:function(){return S.d.users||[]},cols:[['username','Username'],['fullName','ชื่อ'],['role','Role'],['className','ห้อง'],['email','Email'],['active','สถานะ',function(r){return tag(r.active)}]],
+
+  f:function(){return [['username','Username','text'],['password','รหัสผ่าน (เว้นว่าง=ไม่เปลี่ยน)','password'],['fullName','ชื่อ-สกุล','text'],['email','Email','text'],['role','Role','select',[['student','student'],['teacher','teacher'],['admin','admin']]],['studentId','รหัสนักเรียน','text'],['className','ห้อง','text'],['phone','โทร','text'],['active','สถานะ','select',BOOL]]}}
+
+};
+
+function crudPage(k){var C=CRUD[k],rows=C.list();return '<div class="bar"><span>'+rows.length+' รายการ</span><button onclick="openForm(\''+k+'\')">+ เพิ่ม</button></div>'+table(C.cols,rows,function(r,i){var pv=(k==='lessons'||k==='questions'||k==='exams')?'<button class="outline sm" onclick="previewItem(\''+k+'\','+i+')">'+T('preview')+'</button> ':'';return pv+'<button class="sec sm" onclick="openForm(\''+k+'\','+i+')">แก้ไข</button> <button class="bad sm" onclick="delItem(\''+k+'\','+i+')">ลบ</button>'});}
+
+function openForm(k,i){
+
+ var C=CRUD[k],cur=i==null?{active:'TRUE'}:C.list()[i],isNew=i==null,h='<h3>'+(isNew?'เพิ่ม':'แก้ไข')+'</h3>';
+
+ C.f().forEach(function(f){var v=cur[f[0]]==null?'':cur[f[0]],id='f_'+f[0];h+='<label>'+f[1]+'</label>';
+
+  if(f[2]==='select')h+='<select id="'+id+'">'+f[3].map(function(o){return '<option value="'+esc(o[0])+'"'+(String(o[0]).toUpperCase()===String(v).toUpperCase()?' selected':'')+'>'+esc(o[1])+'</option>'}).join('')+'</select>';
+
+  else if(f[2]==='textarea')h+='<textarea id="'+id+'">'+esc(v)+'</textarea>';
+
+  else h+='<input id="'+id+'" type="'+f[2]+'" value="'+(f[2]==='password'?'':esc(v))+'"'+(f[0]===C.key&&!isNew?' readonly':'')+'>';});
+
+ h+='<div style="text-align:right;margin-top:14px"><button class="sec" onclick="closeModal()">ยกเลิก</button> <button id="sv">บันทึก</button></div>';
+
+ modal(h);
+
+ $('sv').onclick=function(){var o={};C.f().forEach(function(f){o[f[0]]=$('f_'+f[0]).value});if(!isNew)o[C.key]=cur[C.key];
+
+  run(call('save',{entity:C.ent,obj:o,isNew:isNew,rebuild:C.ent==='exam'&&!isNew}),'บันทึกแล้ว').then(function(r){closeModal();refresh();if(C.ent==='user'&&r&&(r.mailSent||r.mailError)){if(r.mailSent)toast('ส่งอีเมลแล้ว');else toast('บันทึกแล้ว แต่ส่งอีเมลไม่สำเร็จ: '+r.mailError,1)}})};
+
+}
+
+function delItem(k,i){var C=CRUD[k],r=C.list()[i];ask('ลบ '+r[C.key]+' ?',function(){run(call('delete',{entity:C.ent,id:r[C.key]}),'ลบแล้ว').then(refresh)})}
+
+
+
+/* ---------- pages ---------- */
+
+var adminSettingsCache={};
+
+function loadAdminSettings(){if(S.user&&S.user.role==='admin')call('getSettings').then(function(x){S.settings=Object.assign(S.settings||{},x||{});S.settings.googleClientId=S.settings.GOOGLE_CLIENT_ID;S.settings.title=S.settings.APP_TITLE;S.settings.subtitle=S.settings.APP_SUBTITLE;S.settings.footer=S.settings.FOOTER_TEXT;applyPublicSettings()}).catch(function(){})}
+
+function saveAllSettings(){var vals={APP_TITLE:$('set_title').value,APP_SUBTITLE:$('set_sub').value,FOOTER_TEXT:$('set_footer').value,THEME:$('set_theme').value,LANG:$('set_lang').value,COPY_NOTICE:$('set_copy').value,GOOGLE_CLIENT_ID:$('set_google').value,SESSION_TIMEOUT_MIN:$('set_timeout').value};Promise.all(Object.keys(vals).map(function(k){return call('saveSetting',{key:k,value:vals[k]})})).then(function(){Object.assign(S.settings,vals);S.settings.googleClientId=vals.GOOGLE_CLIENT_ID;S.settings.title=vals.APP_TITLE;S.settings.subtitle=vals.APP_SUBTITLE;S.settings.footer=vals.FOOTER_TEXT;S.theme=vals.THEME;S.lang=vals.LANG;applyPublicSettings();toast('บันทึกการตั้งค่าระบบแล้ว');}).catch(function(e){toast(e.message,1)})}
+
+function previewItem(k,i){var r=CRUD[k].list()[i];if(k==='lessons'){modal('<h3>📖 '+esc(r.title)+'</h3><div class="notice">'+esc(S.settings.COPY_NOTICE||T('copyNotice'))+'</div><div class="preview protected" oncontextmenu="return false">'+esc(r.content||'').replace(/\n/g,'<br>')+'</div>')}else if(k==='questions'){modal('<h3>❓ '+esc(r.question)+'</h3><div class="preview">'+['A','B','C','D'].map(function(c){return '<p>'+c+'. '+esc(r['choice'+c])+'</p>'}).join('')+'</div>')}else if(k==='exams'){run(call('previewExam',{examId:r.examId})).then(function(x){modal('<h3>📝 '+esc(x.exam.title)+'</h3><p>เวลา '+esc(x.exam.durationMin)+' นาที · '+x.questions.length+' ข้อ</p><div class="notice">'+esc(S.settings.COPY_NOTICE||T('copyNotice'))+'</div><div class="protected" oncontextmenu="return false">'+x.questions.map(function(q,n){return '<div class="q"><b>'+(n+1)+'. '+esc(q.question)+'</b>'+['A','B','C','D'].map(function(c){return '<p>'+c+'. '+esc(q['choice'+c])+'</p>'}).join('')+'</div>'}).join('')+'</div>')})}}
+
+var PAGES={
+
+ dashboard:function(){var d=S.d,c=[];
+
+  if(S.user.role==='student')c=[['หมวดเรียน',(d.topics||[]).filter(function(t){return isAct(t.active)}).length],['บทเรียน',(d.lessons||[]).length],['ชุดสอบ',(d.exams||[]).length],['สอบแล้ว',(d.results||[]).length]];
+
+  else c=[['หมวด',(d.topics||[]).length],['บทเรียน',(d.lessons||[]).length],['ข้อสอบ',(d.questions||[]).length],['ชุดสอบ',(d.exams||[]).length],['เอกสาร',(d.documents||[]).length],['ผู้สอบ (ครั้ง)',(d.results||[]).length]];
+
+  if(S.user.role==='admin')c.push(['ผู้ใช้',(d.users||[]).length]);
+
+  return '<div class="cards">'+c.map(function(x){return '<div class="card"><b>'+x[1]+'</b>'+x[0]+'</div>'}).join('')+'</div><div class="card">ยินดีต้อนรับ '+esc(S.user.fullName||S.user.username)+'</div>'},
+
+ topics:function(){return crudPage('topics')},lessons:function(){return S.user.role==='student'?stuLessons():crudPage('lessons')},
+
+ questions:function(){return crudPage('questions')},users:function(){return crudPage('users')},
+
+ exams:function(){return S.user.role==='student'?stuExams():crudPage('exams')},
+
+ documents:function(){var st=S.user.role!=='student',rows=S.d.documents||[];
+
+  return (st?'<div class="bar"><span>'+rows.length+' ไฟล์</span><button onclick="docForm()">+ อัปโหลด PDF</button></div>':'')+
+
+  table([['title','ชื่อ'],['topicId','หมวด',function(r){return esc(tname(r.topicId))}],['description','รายละเอียด'],['fileUrl','ไฟล์',function(r){return '<a href="'+esc(r.fileUrl)+'" target="_blank">เปิด</a>'}]],rows,st?function(r,i){return '<button class="bad sm" onclick="delDoc('+i+')">ลบ</button>'}:null)},
+
+ results:function(){var st=S.user.role!=='student';var dev=S.d.development||{totalWrong:0,byTopic:[],byLesson:[]};var h=table([['submittedAt','วันที่',function(r){return dt(r.submittedAt)}]].concat(st?[['studentName','นักเรียน']]:[]).concat([['examTitle','ชุดสอบ'],['correct','ถูก'],['wrong','ผิด'],['total','ข้อ'],['percent','%'],['passed','ผล',function(r){return String(r.passed).toUpperCase()==='TRUE'?'<span class="tag ok">ผ่าน</span>':'<span class="tag no">ไม่ผ่าน</span>'}]]),S.d.results||[]);if(!st)return h;h+='<div class="card" style="margin-top:14px"><h3>🎯 ชุด/บทเรียนที่ควรพัฒนา</h3><p>วิเคราะห์จากข้อที่ตอบผิดของนักเรียน</p>'+(dev.totalWrong?'<h4>หมวดที่ควรทบทวน</h4>'+table([['name','หมวด'],['wrong','ข้อที่ผิด'],['percent','สัดส่วน %']],dev.byTopic)+'<h4>บทเรียนที่ควรพัฒนา</h4>'+table([['title','บทเรียน'],['wrong','ข้อที่ผิด']],dev.byLesson):'<div class="empty">ยังไม่มีข้อมูลการวิเคราะห์จากข้อที่ผิด</div>')+'</div>';return h},
+
+ analytics:function(){var a=S.d.analytics||{attempts:0,passed:0,passRate:0,avg:0,max:0,min:0,byTopic:[],byStudent:[]};
+
+  return '<div class="cards">'+[['ครั้งที่สอบ',a.attempts],['สอบผ่าน',a.passed],['อัตราผ่าน %',a.passRate],['เฉลี่ย %',a.avg],['สูงสุด %',a.max],['ต่ำสุด %',a.min]].map(function(x){return '<div class="card"><b>'+x[1]+'</b>'+x[0]+'</div>'}).join('')+'</div>'+
+
+  '<h3>แยกตามหมวด</h3>'+table([['topicId','หมวด',function(r){return esc(tname(r.topicId))}],['count','ครั้ง'],['avg','เฉลี่ย %']],a.byTopic)+'<h3>แยกตามนักเรียน</h3>'+table([['name','นักเรียน'],['count','ครั้ง'],['avg','เฉลี่ย %']],a.byStudent)},
+
+ audit:function(){return table([['timestamp','เวลา',function(r){return dt(r.timestamp)}],['userId','User'],['action','Action'],['entity','Entity'],['entityId','ID'],['details','รายละเอียด']],S.d.audit||[])},
+
+ settings:function(){var h=S.d.health||{},c=h.counts||{},a=S.settings||{};return '<div class="cards"><div class="card"><b>🎨</b>ธีมและภาษา</div><div class="card"><b>👁️</b>พรีวิวก่อนเผยแพร่</div><div class="card"><b>🔐</b>การเข้าสู่ระบบ</div></div><div class="card"><h3>ตั้งค่าระบบ</h3><div class="row2"><div><label>ชื่อระบบ</label><input id="set_title" value="'+esc(a.APP_TITLE||'')+'"></div><div><label>คำอธิบายหน้า Login</label><input id="set_sub" value="'+esc(a.APP_SUBTITLE||'')+'"></div><div><label>ข้อความ Footer / ลิขสิทธิ์</label><input id="set_footer" value="'+esc(a.FOOTER_TEXT||'')+'"></div><div><label>ธีมเริ่มต้น</label><select id="set_theme"><option value="light" '+(a.THEME==='light'?'selected':'')+'>สว่าง</option><option value="dark" '+(a.THEME==='dark'?'selected':'')+'>มืด</option></select></div><div><label>ภาษาเริ่มต้น</label><select id="set_lang"><option value="th" '+(a.LANG!=='en'?'selected':'')+'>ไทย</option><option value="en" '+(a.LANG==='en'?'selected':'')+'>English</option></select></div><div><label>Google Client ID (Web)</label><input id="set_google" value="'+esc(a.GOOGLE_CLIENT_ID||'')+'" placeholder="xxxx.apps.googleusercontent.com"></div><div><label>Session Timeout (นาที)</label><input id="set_timeout" type="number" min="5" max="1440" value="'+esc(a.SESSION_TIMEOUT_MIN||S.sessionTimeoutMin||360)+'"></div></div><label>ข้อความลิขสิทธิ์ในบทเรียน/ข้อสอบ</label><textarea id="set_copy">'+esc(a.COPY_NOTICE||T('copyNotice'))+'</textarea><div style="text-align:right"><button onclick="saveAllSettings()">บันทึกการตั้งค่า</button></div></div><div class="card"><h3>สถานะระบบ</h3><p><b>Database ID:</b> '+esc(h.dbId)+'</p><p><b>ชื่อ:</b> '+esc(h.name)+'</p><p><a href="'+esc(h.url)+'" target="_blank">เปิด Spreadsheet</a></p><p><b>Drive Folder ID:</b> '+esc(h.driveId)+' ('+esc(h.drivePermission)+')</p><p><b>ทุก Role ใช้ DB เดียวกัน:</b> '+(h.sameDbForAllRoles?'ใช่':'ไม่')+'</p><p>'+Object.keys(c).map(function(k){return esc(k)+': '+c[k]}).join(' | ')+'</p></div>'},
+
+ profile:function(){var u=S.user;return '<div class="card" style="max-width:420px"><p><b>'+esc(u.fullName)+'</b> ('+esc(u.role)+')</p><p>Username: '+esc(u.username)+'</p><p>Email: '+esc(u.email)+'</p><button onclick="pwModal(false)">เปลี่ยนรหัสผ่าน</button></div>'},
+
+ import:function(){var I=S.imp;
+
+  return '<div class="card"><p>รองรับไฟล์ CSV (UTF-8) และระบบจะตรวจสอบ <b>Topic → Lesson</b> ก่อน Import</p><div class="bar" style="justify-content:flex-start"><button class="sec" onclick="dlTemplate()">⬇️ ดาวน์โหลด Template</button><input type="file" id="impf" accept=".csv" style="width:auto" onchange="readCsv(this)"><select id="impm" style="width:auto"><option value="skip">ซ้ำ: ข้าม</option><option value="update">ซ้ำ: อัปเดต (ตาม questionId)</option></select></div><div class="row2"><div><label>กำหนดหมวดให้ข้อมูลนำเข้า</label><select id="impTopic" onchange="loadImportLessons()"><option value="">ใช้ค่า topicId จาก CSV</option>'+topicOpts().map(function(o){return '<option value="'+esc(o[0])+'">'+esc(o[1])+'</option>'}).join('')+'</select></div><div><label>กำหนดบทเรียนที่สัมพันธ์กับหมวด</label><select id="impLesson"><option value="">เลือกหมวดก่อน</option></select></div></div><p class="notice">ถ้าเลือกหมวดและบทเรียน ระบบจะนำค่าไปใช้กับทุกแถว และตรวจสอบกับฐานข้อมูลอีกครั้งก่อนนำเข้า</p><p>แถวที่อ่านได้: <b>'+I.rows.length+'</b></p><button onclick="impGo(true)" '+(I.rows.length?'':'disabled')+'>ตรวจสอบ (Preview)</button> <button onclick="impGo(false)" '+(I.rows.length?'':'disabled')+'>นำเข้า</button></div><div id="impres" style="margin-top:12px">'+(I.res?impRes(I.res):'')+'</div>'}
+
+};
+
+var TCOLS=['questionId','topicId','lessonId','question','choiceA','choiceB','choiceC','choiceD','answer','explanation','difficulty','active'];
+
+function dlTemplate(){var csv='\ufeff'+TCOLS.join(',')+'\nQ001,,,,"ตัวอย่างคำถาม","ตอบ A","ตอบ B","ตอบ C","ตอบ D",A,"คำอธิบาย",easy,TRUE\n';var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download='questions_template.csv';a.click()}
+
+function parseCsv(t){var rows=[],r=[],f='',q=false;t=t.replace(/^\ufeff/,'');for(var i=0;i<t.length;i++){var c=t[i];
+
+ if(q){if(c=='"'){if(t[i+1]=='"'){f+='"';i++}else q=false}else f+=c}
+
+ else if(c=='"')q=true;else if(c==','){r.push(f);f=''}else if(c=='\n'||c=='\r'){if(c=='\r'&&t[i+1]=='\n')i++;r.push(f);f='';if(r.join('')!=='')rows.push(r);r=[]}else f+=c}
+
+ if(f!==''||r.length){r.push(f);rows.push(r)}return rows}
+
+function readCsv(inp){var f=inp.files[0];if(!f)return;if(!/\\.csv$/i.test(f.name)){toast('กรุณาใช้ไฟล์ .csv',1);return}
+
+ var fr=new FileReader();fr.onload=function(){var p=parseCsv(fr.result),h=p.shift().map(function(x){return x.trim()});
+
+  var miss=TCOLS.filter(function(c){return h.indexOf(c)<0});if(miss.length){toast('หัวคอลัมน์ขาด: '+miss.join(','),1);return}
+
+  S.imp={rows:p.map(function(r){var o={};h.forEach(function(k,i){o[k]=r[i]});return o}),res:null};render();toast('อ่านได้ '+S.imp.rows.length+' แถว')};fr.readAsText(f,'UTF-8')}
+
+function impRes(r){var h='<div class="cards"><div class="card"><b>'+r.ok.length+'</b>ใหม่ที่ผ่าน</div><div class="card"><b>'+r.dups.length+'</b>ซ้ำ</div><div class="card"><b>'+r.errors.length+'</b>ผิดพลาด</div>'+(r.imported!=null?'<div class="card"><b>'+r.imported+'/'+r.updated+'</b>เพิ่ม/อัปเดต</div>':'')+'</div>';
+
+ if(r.errors.length)h+='<h3>แถวที่ผิด</h3>'+table([['row','แถว'],['message','สาเหตุ']],r.errors);
+
+ if(r.dups.length)h+='<h3>แถวซ้ำ</h3>'+table([['row','แถว'],['questionId','ID'],['question','คำถาม']],r.dups);return h}
+
+function loadImportLessons(){var tid=$('impTopic')&&$('impTopic').value,el=$('impLesson');if(!el)return;var ls=(S.d.lessons||[]).filter(function(l){return !tid||String(l.topicId)===String(tid)});el.innerHTML='<option value="">'+(tid?'เลือกบทเรียน':'เลือกหมวดก่อน')+'</option>'+ls.map(function(l){return '<option value="'+esc(l.lessonId)+'">'+esc(l.lessonId+' '+l.title)+'</option>'}).join('')}
+
+function prepareImportRows(){var tid=$('impTopic')&&$('impTopic').value,lid=$('impLesson')&&$('impLesson').value;return S.imp.rows.map(function(r){var o={};Object.keys(r).forEach(function(k){o[k]=r[k]});if(tid)o.topicId=tid;if(lid)o.lessonId=lid;return o})}
+
+function impGo(dry){var rows=prepareImportRows();run(call(dry?'importPreview':'importQuestions',{rows:rows,mode:$('impm').value}),dry?'':'นำเข้าเสร็จ').then(function(r){S.imp.res=r;render();if(!dry)refresh().then(function(){S.imp.res=r;render()})})}
+
+
+
+/* documents */
+
+function docForm(){modal('<h3>อัปโหลด PDF</h3><label>ชื่อเอกสาร</label><input id="dt"><label>รายละเอียด</label><input id="dd"><label>หมวด</label><select id="dtp"><option value="">-</option>'+topicOpts().map(function(o){return '<option value="'+esc(o[0])+'">'+esc(o[1])+'</option>'}).join('')+'</select><label>ไฟล์ PDF (≤ 6MB)</label><input type="file" id="dfi" accept=".pdf"><div style="text-align:right;margin-top:14px"><button class="sec" onclick="closeModal()">ยกเลิก</button> <button id="du">อัปโหลด</button></div>');
+
+ $('du').onclick=function(){var f=$('dfi').files[0];if(!f){toast('เลือกไฟล์ก่อน',1);return}if(f.size>6e6){toast('ไฟล์ใหญ่เกิน 6MB',1);return}
+
+  var fr=new FileReader();fr.onload=function(){run(call('uploadDocument',{title:$('dt').value,description:$('dd').value,topicId:$('dtp').value,fileName:f.name,base64:fr.result.split(',')[1]}),'อัปโหลดแล้ว').then(function(){closeModal();refresh()})};fr.readAsDataURL(f)}}
+
+function delDoc(i){var d=S.d.documents[i];ask('ลบเอกสาร '+d.title+' ?',function(){run(call('deleteDocument',{documentId:d.documentId}),'ลบแล้ว').then(refresh)})}
+
+
+
+/* password */
+
+function pwModal(force){modal('<h3>'+(force?'กรุณาเปลี่ยนรหัสผ่านก่อนใช้งาน':'เปลี่ยนรหัสผ่าน')+'</h3><label>รหัสผ่านเดิม</label><input id="po" type="password"><label>รหัสผ่านใหม่ (≥ 8 ตัว)</label><input id="pn" type="password"><div style="text-align:right;margin-top:14px">'+(force?'':'<button class="sec" onclick="closeModal()">ยกเลิก</button> ')+'<button id="pb">บันทึก</button></div>',force);
+
+ $('pb').onclick=function(){run(call('changePassword',{oldPassword:$('po').value,newPassword:$('pn').value}),'เปลี่ยนรหัสผ่านแล้ว').then(function(){S.user.mustChange='FALSE';closeModal()})}}
+
+
+
+/* student: lessons */
+
+function stuLessons(){var ts=(S.d.topics||[]),sel=S.stuTopic||(ts[0]&&ts[0].topicId)||'';
+
+ var ls=(S.d.lessons||[]).filter(function(l){return String(l.topicId)===String(sel)}).sort(function(a,b){return (+a.sortOrder||0)-(+b.sortOrder||0)});
+
+ var docs=(S.d.documents||[]).filter(function(d){return String(d.topicId)===String(sel)&&isAct(d.active)});
+
+ var cur=S.tmp.lesson&&ls.filter(function(l){return l.lessonId===S.tmp.lesson})[0];
+
+ var docHtml=docs.length?docs.map(function(d){return '<div class="card" style="margin-bottom:8px"><b>📄 '+esc(d.title)+'</b><div style="color:var(--mut);margin:4px 0">'+esc(d.description||'')+'</div><a href="'+esc(d.fileUrl)+'" target="_blank">'+U('open')+'</a></div>'}).join(''):'<div class="empty">'+U('noDocuments')+'</div>';
+
+ return '<div class="notice">'+esc(S.settings.COPY_NOTICE||T('copyNotice'))+'</div><div class="row2"><div><label>'+U('selectTopic')+'</label><select onchange="S.stuTopic=this.value;S.tmp.lesson=\'\';render()">'+ts.map(function(t){return '<option value="'+esc(t.topicId)+'"'+(String(t.topicId)===String(sel)?' selected':'')+'>'+esc(t.name)+'</option>'}).join('')+'</select>'+
+
+ '<div style="margin-top:10px">'+ls.map(function(l){return '<div class="card" style="margin-bottom:8px;cursor:pointer" onclick="S.tmp.lesson=\''+esc(l.lessonId)+'\';render()">'+esc(l.title)+'</div>'}).join('')+'</div></div>'+
+
+ '<div><div class="card protected" style="min-height:160px" oncontextmenu="return false">'+(cur?'<h3>'+esc(cur.title)+'</h3><div style="white-space:pre-wrap">'+esc(cur.content)+'</div>':'<div class="empty">'+esc(U('selectTopic'))+'</div>')+'</div><div class="card" style="margin-top:10px"><h3>📄 '+U('documentsInTopic')+'</h3>'+docHtml+'</div></div></div>'}
+
+
+
+/* student: exams */
+
+function stuExams(){
+
+ if(S.exam)return examView();
+
+ var ex=S.d.exams||[],ts=S.d.topics||[];
+
+ var mode=S.tmp.examMode||'exam',topic=S.tmp.examTopic||'';
+
+ var filtered=ex.filter(function(e){return !topic||String(e.topicId)===String(topic)});
+
+ var h='<div class="card" style="margin-bottom:14px"><div class="row2"><div><label>'+U('examMode')+'</label><select onchange="S.tmp.examMode=this.value;render()"><option value="exam" '+(mode==='exam'?'selected':'')+'>'+U('byExam')+'</option><option value="topic" '+(mode==='topic'?'selected':'')+'>'+U('byTopic')+'</option><option value="mixed" '+(mode==='mixed'?'selected':'')+'>'+U('mixed')+'</option></select></div>';
+
+ if(mode==='topic')h+='<div><label>'+U('selectTopic')+'</label><select onchange="S.tmp.examTopic=this.value;render()"><option value="">'+U('allTopics')+'</option>'+ts.map(function(t){return '<option value="'+esc(t.topicId)+'" '+(String(t.topicId)===String(topic)?'selected':'')+'>'+esc(t.name)+'</option>'}).join('')+'</select></div>';
+
+ h+='</div>';
+
+ if(mode==='mixed')return h+'<div class="row2"><div><label>'+U('selectTopic')+'</label><select id="mixTopics" multiple size="5">'+ts.map(function(t){return '<option value="'+esc(t.topicId)+'">'+esc(t.name)+'</option>'}).join('')+'</select></div><div><label>'+U('questionCount')+'</label><input id="mixCount" type="number" min="1" value="20"><label>'+U('duration')+'</label><input id="mixDuration" type="number" min="1" value="30"><label>'+U('pass')+'</label><input id="mixPass" type="number" min="0" max="100" value="50"></div></div><div style="margin-top:12px;text-align:right"><button onclick="startMixedExam()">'+U('mixedStart')+'</button></div></div>';
+
+ return h+'</div>'+table([['title',S.lang==='th'?'ชื่อชุดสอบ':'Exam Set'],['topicId',U('category'),function(r){return esc(tname(r.topicId))}],['durationMin',U('duration')],['questionCount',U('questionCount')],['passPercent',U('pass')]],filtered,function(r){return '<button class="sm" onclick="startExam(\''+esc(r.examId)+'\')">'+U('start')+'</button>'});}
+
+function startMixedExam(){var sel=$('mixTopics'),topics=[].slice.call(sel.selectedOptions).map(function(o){return o.value});if(!topics.length){toast(U('selectTopic'),1);return}var count=Math.max(1,Number($('mixCount').value)||20),duration=Math.max(1,Number($('mixDuration').value)||30),pass=Math.max(0,Math.min(100,Number($('mixPass').value)||50));run(call('startMixedExam',{topicIds:topics,questionCount:count,durationMin:duration,passPercent:pass})).then(function(r){S.exam={s:r,ans:{},end:new Date(r.endAt).getTime()};render();tick()})}
+
+function startExam(id){run(call('startExam',{examId:id})).then(function(r){S.exam={s:r,ans:{},end:new Date(r.endAt).getTime()};render();tick()})}
+
+
+
+function examView(){var E=S.exam;if(E.result)return resultView(E.result);
+
+ return '<div class="notice">'+esc(S.settings.COPY_NOTICE||T('copyNotice'))+'</div><div class="bar"><h3 style="margin:0">'+esc(E.s.exam.title)+'</h3><b id="clock"></b></div><div class="protected" oncontextmenu="return false">'+E.s.questions.map(function(q,i){
+
+  return '<div class="q"><b>'+(i+1)+'. '+esc(q.question)+'</b>'+['A','B','C','D'].map(function(c){return '<label><input type="radio" name="q'+i+'" onchange="S.exam.ans[\''+esc(q.questionId)+'\']=\''+c+'\'"'+(E.ans[q.questionId]===c?' checked':'')+'>'+c+'. '+esc(q['choice'+c])+'</label>'}).join('')+'</div>'}).join('')+'</div>\n  <button onclick="submitExam()">ส่งข้อสอบ</button>'}
+
+function tick(){if(!S.exam||S.exam.result)return;var left=Math.max(0,Math.floor((S.exam.end-Date.now())/1000)),c=$('clock');
+
+ if(c)c.textContent='⏱ '+Math.floor(left/60)+':'+('0'+left%60).slice(-2);if(left<=0&&!S.exam.sub){submitExam();return}setTimeout(tick,1000)}
+
+function submitExam(){var E=S.exam;if(E.sub)return;E.sub=true;run(call('submitExam',{sessionId:E.s.sessionId,answers:E.ans})).then(function(r){E.result=r;render();refresh()}).catch(function(){E.sub=false})}
+
+function resultView(r){var a=r.attempt;return '<div class="cards"><div class="card"><b>'+a.correct+'/'+a.total+'</b>คะแนน</div><div class="card"><b>'+a.percent+'%</b>'+(String(a.passed).toUpperCase()==='TRUE'?'ผ่าน':'ไม่ผ่าน')+'</div></div>'+
+
+ r.review.map(function(x,i){return '<div class="q"><b>'+(i+1)+'. '+esc(x.question)+'</b><div>ตอบ: '+esc(x.choice||'-')+' | เฉลย: '+esc(x.correctAnswer)+' '+(x.isCorrect?'✅':'❌')+'</div>'+(x.explanation?'<small>'+esc(x.explanation)+'</small>':'')+'</div>'}).join('')+'<button onclick="S.exam=null;navigate(\'results\')">ดูประวัติผลสอบ</button>'}
+
+
+
+document.addEventListener('copy',function(e){if(document.querySelector('.protected')){e.preventDefault();toast('ไม่อนุญาตให้คัดลอกเนื้อหา',1)}});document.addEventListener('contextmenu',function(e){if(e.target.closest&&e.target.closest('.protected'))e.preventDefault()});document.addEventListener('dragstart',function(e){if(e.target.closest&&e.target.closest('.protected'))e.preventDefault()});$('lu').focus();init();
+
+
+
+/* ===== KPTC FIXES — ชุดแก้ไขเพิ่มเติม (วางท้าย script และให้ฟังก์ชันใหม่มีผลแทนของเดิม) ===== */
+
+// ---- แก้หัวตาราง/ป้ายชื่อที่กลายเป็นคีย์ภาษาอังกฤษ (เช่น topicName, username) ----
+var _trOrig = trText;
+trText = function (v) {
+  var r = _trOrig(v);
+  if (/^[a-z][A-Za-z]*$/.test(r)) {               // ได้คีย์ดิบที่ไม่มีคำแปลกลับมา
+    if (S.lang === 'th') return v;
+    return r.charAt(0).toUpperCase() + r.slice(1).replace(/([A-Z])/g, ' $1');
+  }
+  return r;
+};
+
+// ---- Import CSV: จำค่าที่เลือกไว้ ไม่ให้รีเซ็ตทุกครั้งที่ render + ตรวจก่อนนำเข้า + แสดงแถวผิดชัดเจน ----
+function impSel() { var a = $('impTopic'), b = $('impLesson'), m = $('impm'); if (a) S.imp.topic = a.value; if (b) S.imp.lesson = b.value; if (m) S.imp.mode = m.value; }
+function lessonOptsFor(tid, sel) {
+  return '<option value="">' + (tid ? 'ใช้ lessonId จาก CSV' : 'เลือกหมวดก่อน') + '</option>' +
+    (S.d.lessons || []).filter(function (l) { return tid && String(l.topicId) === String(tid); })
+      .map(function (l) { return '<option value="' + esc(l.lessonId) + '"' + (l.lessonId === sel ? ' selected' : '') + '>' + esc(l.lessonId + ' ' + l.title) + '</option>'; }).join('');
+}
+function loadImportLessons() { impSel(); S.imp.lesson = ''; render(); }
+PAGES['import'] = function () {
+  var I = S.imp, tp = I.topic || '', ok = I.res && I.res.dry;
+  return '<div class="card"><p>รองรับไฟล์ CSV (UTF-8) — ระบบตรวจ <b>Topic → Lesson</b>, ตัวเลือก A-D, เฉลย และข้อซ้ำ ก่อนนำเข้าจริง</p>' +
+    '<div class="bar" style="justify-content:flex-start"><button class="sec" onclick="dlTemplate()">⬇️ ดาวน์โหลด Template</button>' +
+    '<input type="file" id="impf" accept=".csv" style="width:auto" onchange="readCsv(this)"><span>' + esc(I.file || '') + '</span>' +
+    '<select id="impm" style="width:auto"><option value="skip"' + (I.mode !== 'update' ? ' selected' : '') + '>ซ้ำ: ข้าม</option><option value="update"' + (I.mode === 'update' ? ' selected' : '') + '>ซ้ำ: อัปเดต (ตาม questionId)</option></select></div>' +
+    '<div class="row2"><div><label>กำหนดหมวดให้ทุกแถว (ไม่บังคับ)</label><select id="impTopic" onchange="loadImportLessons()"><option value="">ใช้ topicId จาก CSV</option>' +
+    topicOpts().map(function (o) { return '<option value="' + esc(o[0]) + '"' + (o[0] === tp ? ' selected' : '') + '>' + esc(o[1]) + '</option>'; }).join('') + '</select></div>' +
+    '<div><label>กำหนดบทเรียนให้ทุกแถว (ไม่บังคับ)</label><select id="impLesson" onchange="impSel()">' + lessonOptsFor(tp, I.lesson) + '</select></div></div>' +
+    '<p>แถวที่อ่านได้: <b>' + I.rows.length + '</b></p>' +
+    '<button onclick="impGo(true)"' + (I.rows.length ? '' : ' disabled') + '>1) ตรวจสอบ (Preview)</button> <button onclick="impGo(false)"' + (ok ? '' : ' disabled') + '>2) นำเข้า</button>' +
+    (ok ? '' : '<small style="color:var(--mut)"> ต้อง Preview ก่อนจึงจะนำเข้าได้</small>') + '</div><div style="margin-top:12px">' + (I.res ? impRes(I.res) : '') + '</div>';
+};
+function dlTemplate() {
+  var t = (S.d.topics || [])[0] || {}, l = (S.d.lessons || []).filter(function (x) { return x.topicId === t.topicId; })[0] || {};
+  var csv = '\ufeff' + TCOLS.join(',') + '\n,' + (t.topicId || 'T01') + ',' + (l.lessonId || 'L01') + ',"ตัวอย่างคำถาม","ตอบ A","ตอบ B","ตอบ C","ตอบ D",A,"คำอธิบาย",easy,TRUE\n';
+  var a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv' })); a.download = 'questions_template.csv'; a.click();
+}
+function readCsv(inp) {
+  var f = inp.files[0]; if (!f) return; impSel();
+  if (!/\.csv$/i.test(f.name)) { toast('กรุณาใช้ไฟล์ .csv', 1); return; }
+  var fr = new FileReader();
+  fr.onload = function () {
+    var p = parseCsv(fr.result), h = (p.shift() || []).map(function (x) { return x.trim(); });
+    var miss = TCOLS.filter(function (c) { return h.indexOf(c) < 0; });
+    if (miss.length) { toast('หัวคอลัมน์ขาด: ' + miss.join(', '), 1); return; }
+    S.imp.rows = p.map(function (r) { var o = {}; h.forEach(function (k, i) { o[k] = r[i]; }); return o; });
+    S.imp.res = null; S.imp.file = f.name; render(); toast('อ่านได้ ' + S.imp.rows.length + ' แถว');
+  };
+  fr.readAsText(f, 'UTF-8');
+}
+function prepareImportRows() {
+  return S.imp.rows.map(function (r) { var o = {}; Object.keys(r).forEach(function (k) { o[k] = r[k]; }); if (S.imp.topic) o.topicId = S.imp.topic; if (S.imp.lesson) o.lessonId = S.imp.lesson; return o; });
+}
+function impGo(dry) {
+  impSel(); var rows = prepareImportRows();
+  var go = function () {
+    run(call(dry ? 'importPreview' : 'importQuestions', { rows: rows, mode: S.imp.mode || 'skip' }), dry ? '' : 'นำเข้าเสร็จ').then(function (r) {
+      r.dry = dry; S.imp.res = r; render(); if (!dry) refresh().then(function () { S.imp.res = r; render(); });
+    });
+  };
+  if (!dry && S.imp.res && S.imp.res.errors.length) ask('มี ' + S.imp.res.errors.length + ' แถวที่ผิดและจะถูกข้าม — นำเข้าเฉพาะ ' + S.imp.res.ok.length + ' แถวที่ถูกต้อง ใช่หรือไม่?', go); else go();
+}
+function impRes(r) {
+  var rows = S.imp.rows || [];
+  var errs = (r.errors || []).map(function (e) { var x = rows[e.row - 2] || {}; return { row: e.row, questionId: x.questionId || '-', question: String(x.question || '').slice(0, 60), message: e.message }; });
+  var h = '<h3>' + (r.dry ? 'ผลตรวจสอบ (ยังไม่ได้นำเข้า)' : 'ผลการนำเข้า') + '</h3><div class="cards"><div class="card"><b>' + r.ok.length + '</b>ผ่าน (ใหม่)</div><div class="card"><b>' + r.dups.length + '</b>ซ้ำ</div><div class="card"><b>' + errs.length + '</b>ผิดพลาด</div>' +
+    (r.imported != null ? '<div class="card"><b>' + r.imported + '/' + r.updated + '</b>เพิ่ม/อัปเดต</div>' : '') + '</div>';
+  if (errs.length) h += '<h3>แถวที่ผิด (แถวที่ 1 = หัวตาราง)</h3>' + table([['row', 'แถว'], ['questionId', 'questionId'], ['question', 'คำถาม'], ['message', 'สาเหตุ']], errs);
+  if (r.dups.length) h += '<h3>แถวซ้ำ</h3>' + table([['row', 'แถว'], ['questionId', 'ID'], ['question', 'คำถาม']], r.dups);
+  return h;
+}
+
+// ---- Users: ตรวจ Email/Username ก่อนส่ง และแสดงข้อความในฟอร์ม ----
+function openForm(k, i) {
+  var C = CRUD[k], cur = i == null ? { active: 'TRUE' } : C.list()[i], isNew = i == null, h = '<h3>' + (isNew ? 'เพิ่ม' : 'แก้ไข') + '</h3>';
+  C.f().forEach(function (f) {
+    var v = cur[f[0]] == null ? '' : cur[f[0]], id = 'f_' + f[0]; h += '<label>' + f[1] + '</label>';
+    if (f[2] === 'select') h += '<select id="' + id + '">' + f[3].map(function (o) { return '<option value="' + esc(o[0]) + '"' + (String(o[0]).toUpperCase() === String(v).toUpperCase() ? ' selected' : '') + '>' + esc(o[1]) + '</option>'; }).join('') + '</select>';
+    else if (f[2] === 'textarea') h += '<textarea id="' + id + '">' + esc(v) + '</textarea>';
+    else h += '<input id="' + id + '" type="' + f[2] + '" value="' + (f[2] === 'password' ? '' : esc(v)) + '"' + (f[0] === C.key && !isNew ? ' readonly' : '') + '>';
+  });
+  h += '<div id="ferr" class="notice hide" style="color:var(--bad)"></div><div style="text-align:right;margin-top:14px"><button class="sec" onclick="closeModal()">ยกเลิก</button> <button id="sv">บันทึก</button></div>';
+  modal(h);
+  $('sv').onclick = function () {
+    var o = {}; C.f().forEach(function (f) { o[f[0]] = $('f_' + f[0]).value; }); if (!isNew) o[C.key] = cur[C.key];
+    if (C.ent === 'user') {
+      var un = o.username.trim(), em = o.email.trim().toLowerCase(), us = S.d.users || [], me = isNew ? '' : cur.userId, err = '';
+      var dup = function (f, v) { return us.some(function (x) { return String(x[f]).toLowerCase() === v && x.userId !== me; }); };
+      if (!/^[A-Za-z0-9._@\-]{3,40}$/.test(un)) err = 'Username ต้องยาว 3-40 ตัว ใช้ได้เฉพาะ A-Z a-z 0-9 . _ - @';
+      else if (dup('username', un.toLowerCase())) err = 'Username ซ้ำกับผู้ใช้อื่น';
+      else if (em && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) err = 'รูปแบบ Email ไม่ถูกต้อง';
+      else if (em && dup('email', em)) err = 'Email ซ้ำกับผู้ใช้อื่น';
+      else if ((isNew || o.password) && o.password.length < 8) err = 'รหัสผ่านต้องยาวอย่างน้อย 8 ตัวอักษร';
+      if (err) { var fe = $('ferr'); fe.textContent = err; fe.classList.remove('hide'); return; }
+      o.username = un; o.email = em;
+    }
+    run(call('save', { entity: C.ent, obj: o, isNew: isNew, rebuild: C.ent === 'exam' && !isNew }), 'บันทึกแล้ว').then(function (r) {
+      closeModal(); refresh();
+      if (C.ent === 'user' && r && (r.mailSent || r.mailError)) { if (r.mailSent) toast('ส่งอีเมลแล้ว'); else toast('บันทึกแล้ว แต่ส่งอีเมลไม่สำเร็จ: ' + r.mailError, 1); }
+    }).catch(function (e) { var fe = $('ferr'); if (fe) { fe.textContent = e.message; fe.classList.remove('hide'); } });
+  };
+}
+
+// ---- Google Login: ใช้ปุ่มทางการของ Google + ล้าง Google session ตอน Logout ----
+var _apsOrig = applyPublicSettings;
+applyPublicSettings = function () { _apsOrig(); initGoogleButton(0); };
+function initGoogleButton(n) {
+  var cid = S.settings && S.settings.googleClientId, old = $('googleBtn'); if (!old) return;
+  old.style.display = 'none';
+  var w = $('googleWrap'); if (!w) { w = document.createElement('div'); w.id = 'googleWrap'; w.style.cssText = 'display:flex;justify-content:center'; old.parentNode.insertBefore(w, old); }
+  if (!cid) { w.innerHTML = ''; return; }
+  if (!(window.google && google.accounts && google.accounts.id)) { if (n < 20) setTimeout(function () { initGoogleButton(n + 1); }, 500); else toast('โหลด Google Sign-In ไม่สำเร็จ', 1); return; }
+  google.accounts.id.initialize({ client_id: cid, callback: function (resp) {
+    run(call('googleLogin', { credential: resp.credential })).then(function (r) { S.token = r.token; sessionStorage.setItem('kptc_t', r.token); S.user = r.user; S.perms = r.permissions; boot(); });
+  } });
+  w.innerHTML = ''; google.accounts.id.renderButton(w, { theme: 'outline', size: 'large', width: 280, text: 'signin_with' });
+}
+var _flOrig = forceLogin;
+forceLogin = function () { try { google.accounts.id.disableAutoSelect(); } catch (e) {} _flOrig(); };
+
+</script></body></html>
